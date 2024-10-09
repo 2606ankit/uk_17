@@ -24,6 +24,13 @@ $routes->get('/logout', 'AdminController::logout');
 
 $routes->get('/addcatagory', 'ProductController::addcatagory');
 $routes->post('/addcatagory_form', 'ProductController::addcatagory_form');
+$routes->get('/catagory', 'ProductController::catagory');
+
+
+$routes->get('/addsubcatagory', 'ProductController::addsubcatagory');
+$routes->post('/addsubcatagory_form', 'ProductController::addsubcatagory_form');
+
+
 
 
 $routes->get('/productlisting', 'ProductController::productlisting');

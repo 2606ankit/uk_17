@@ -97,5 +97,7 @@ define('EVENT_PRIORITY_HIGH', 10);
 define('LOGIN_USER_ERROR_TEXT','Username or Password does not match');
 define('SITE_TITLE','UK17');
 define('CATGORY_PREFIX','CATPRE');
+define('CATEGORY_IMAGE_UPLOAD_PATH','/uk-17/catagory_image/');
+define('CAT_TYPE','1');
 // =============== USER ROLES ===============
 define('ADMIN','1');

@@ -24,36 +24,107 @@ class ProductController extends BaseController
         return view('product/addcatagory');
     }
 
+    public function catagory()
+    {
+        return view('product/catagoryListing');
+    }
+
+    public function addsubcatagory()
+    {
+        $allcatagory = $this->adminmodel->getallcatagory();
+        $data = ['allcatagory'=>$allcatagory];
+        return view('product/addsubcatagory',$data);
+    } 
+
     public function addcatagory_form()
     {
-        $catgoryID = rand(10,100).'CATPRE';
- 
-        $fielinfo = $this->request->getfile('catagoryaimage');
-        $path = WRITEPATH;
-        
-        $validationRule = [
-            'catagoryaimage' => [
-               
-                'rules' => [
-                     'mime_in[catagoryaimage,image/jpg,image/jpeg,image/gif,image/png]',
-                 ],
-            ],
-        ];
-        if (! $this->validateData(['catagoryaimage'], $validationRule)) {
-            $data = ['errors' => $this->validator->getErrors()];
-                
-            return view('upload_form', $data);
-        }
-        else{
-            if (! $fielinfo->hasMoved()) {
-                    $filepath = WRITEPATH . 'catagoary_image/' . $fielinfo->store();
+       
+        if (strtolower($this->request->getMethod()) == 'post')
+            {
+                $session_data = $this->session->get('userdata');
+                $catgoryID = rand(10,100).'CATPRE';
+                $imagetype = $_FILES['catagoryaimage'];
+             
+                $catagoryname       =   $this->request->getPost('catagoryname'); 
+                $catagoryalias      =   $this->request->getPost('catagoryalias'); 
+                $catagoryatext      =   $this->request->getPost('catagoryatext');
+                $catagorymessage    =   $this->request->getPost('catagorymessage');
+                $catstatus          =   $this->request->getPost('catstatus');
 
-                    $data = ['uploaded_fileinfo' => new File($filepath)];
-                    echo '<pre>'; print_r($data);
-                    //return view('upload_success', $data);
+
+                $imageupload = $this->adminmodel->uploadCatgeory_image($imagetype);
+                if ($imageupload['success'] == TRUE){
+                    $filename = $imageupload['file_name'];
+                    $filepath = $imageupload['uploded_path'];
+
+                    $insertarray  = array(
+                                            'category_uid'  =>  $catgoryID,
+                                            'catagoryname'  =>  $catagoryname,
+                                            'catagoryalias' =>  $catagoryalias,
+                                            'catagoryatext' =>  $catagoryatext,
+                                            'category_description'  =>  $catagorymessage,
+                                            'catstatus'     =>  $catstatus,
+                                            'filename'      =>  $filename,
+                                            'filepath'      =>  $filepath,
+                                            'session_userid'    =>  $session_data[0]->id
+                                        );
+
+                    $insertdata = $this->productmodel->insertCategory($insertarray);
+                       if($insertdata == TRUE)
+                       {
+                            return redirect()->to('catagory');
+                       }
+                       else {
+                            return redirect()->to('addcatagory');
+                        }
                 }
-            echo'<pre>'; print_r($_POST); die;
-         }
+        }
+    }
+
+     public function addsubcatagory_form()
+    {
+       
+        if (strtolower($this->request->getMethod()) == 'post')
+            {
+                echo '<pre>'; print_r($_POST); die;
+                $session_data = $this->session->get('userdata');
+                $catgoryID = rand(10,100).'CATPRE';
+                $imagetype = $_FILES['catagoryaimage'];
+             
+                $catagoryname       =   $this->request->getPost('catagoryname'); 
+                $catagoryalias      =   $this->request->getPost('catagoryalias'); 
+                $catagoryatext      =   $this->request->getPost('catagoryatext');
+                $catagorymessage    =   $this->request->getPost('catagorymessage');
+                $catstatus          =   $this->request->getPost('catstatus');
+
+
+                $imageupload = $this->adminmodel->uploadCatgeory_image($imagetype);
+                if ($imageupload['success'] == TRUE){
+                    $filename = $imageupload['file_name'];
+                    $filepath = $imageupload['uploded_path'];
+
+                    $insertarray  = array(
+                                            'category_uid'  =>  $catgoryID,
+                                            'catagoryname'  =>  $catagoryname,
+                                            'catagoryalias' =>  $catagoryalias,
+                                            'catagoryatext' =>  $catagoryatext,
+                                            'category_description'  =>  $catagorymessage,
+                                            'catstatus'     =>  $catstatus,
+                                            'filename'      =>  $filename,
+                                            'filepath'      =>  $filepath,
+                                            'session_userid'    =>  $session_data[0]->id
+                                        );
+
+                    $insertdata = $this->productmodel->insertCategory($insertarray);
+                       if($insertdata == TRUE)
+                       {
+                            return redirect()->to('catagory');
+                       }
+                       else {
+                            return redirect()->to('addcatagory');
+                        }
+                }
+        }
     }
    
 

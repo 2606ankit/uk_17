@@ -173,7 +173,7 @@
 						<ul class="sub-menu">
 							<li><a href="<?= base_url();?>catagory" >Catagory Liting</a></li>
 							<li><a href="<?= base_url();?>addcatagory" >Add Catagory</a></li>
-							<li><a href="<?= base_url();?>subcatagory" >Sub Catagory</a></li>
+							<li><a href="<?= base_url();?>addsubcatagory" >Sub Catagory</a></li>
 						</ul>
 					</li> 
 					<li class="has-sub">
