@@ -2,27 +2,29 @@
 
     use CodeIgniter\Model;
 
-    class ProductModel extends Model
+    class catagorymodel extends Model
     {
     	protected $db;
+		protected $catbuilder;
      
     	public function __constructor()
     	{
 			$this->db = db_connect();
            
     	}
+		
         public function insertCategory($insertarray)
         {
-        	$this->db = db_connect();
-        	 $catbuilder = $this->db->table('uk_category');
+        	 
+			$catbuilder = $this->db->table('uk_category');
         	// $this->session->get('userdata'); die;
         	 $todaydate = date('Y-m-d H:i:s');
         	$insert_array = [
         						'category_uid' 			=> 	$insertarray['category_uid'],
         						'category_name'			=>	$insertarray['catagoryname'],
-        						'category_description'	=>	$insertarray['catagoryatext'],
+        						'category_description'	=>	$insertarray['category_description'],
         						'category_alias'		=>	$insertarray['catagoryalias'],
-        						'category_text'			=>	$insertarray['category_description'],
+        						'category_text'			=>	$insertarray['catagoryatext'],
         						'category_image'		=>	$insertarray['filename'],
         						'category_image_url'	=>	$insertarray['filepath'],
         						'is_active'				=>	$insertarray['catstatus'],
@@ -35,15 +37,36 @@
 
         	if ($query){
         		return TRUE;
-        	}
+        	}else { return false;}
         }	
 
         // get all cataogry
         public function getallcatagory()
-        {
-        	 $this->db = db_connect();
-        	 $catbuilder = $this->db->table('uk_category');
-        	 $query = $catbuilder->select("*")->get()->getResult();
+        { 
+			 $catbuilder = $this->db->table('uk_category');
+        	$query = $catbuilder->select("*")->get()->getResult();
         	return $query;
         }
+		
+		// ADD SUB CATAGORY START HERE
+		public function insertsubCategory($insertarray)
+		{
+			$subcatbuilder = $this->db->table('uk_sub_category');
+			$query = $subcatbuilder->insert($insertarray);
+
+        	if ($query){
+        		return TRUE;
+        	}else { return false;}
+		}
+
+		// get all sub catagory 
+		public function getallsubcatagory()
+		{
+			$subcatbuilder = $this->db->table('uk_sub_category');
+			$query = $subcatbuilder->select("*")
+					->join('uk_category', 'uk_category.id = uk_sub_category.parent_category_id')	
+					->get()->getResult();
+			return $query;
+        	 
+		}
     }

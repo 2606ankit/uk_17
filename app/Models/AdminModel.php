@@ -40,7 +40,7 @@
             
         }
 
-        public function uploadCatgeory_image($imagetype)
+        public function uploadCatgeory_image($imagetype,$image_prefix)
         {
            chmod($_SERVER['DOCUMENT_ROOT'].CATEGORY_IMAGE_UPLOAD_PATH, 0777);
 
@@ -50,7 +50,7 @@
             
            if (in_array($extension,$extcheck))
            {    
-                $prefix = 'CAT_'.time();
+                $prefix = $image_prefix.time();
 
                 $uploaddir  = $_SERVER['DOCUMENT_ROOT'].CATEGORY_IMAGE_UPLOAD_PATH;
                 $imagename  = $prefix.'_IMG.'.$extension;

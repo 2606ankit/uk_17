@@ -2,39 +2,58 @@
 
 namespace App\Controllers;
 use App\Models\AdminModel;
-use App\Models\ProductModel;
+use App\Models\CatagoryModel;
 use CodeIgniter\Files\File;
 
-class ProductController extends BaseController
+class CatagoryController extends BaseController
 {
     protected $session;
     private $adminmodel;
-    private $productmodel;
+    private $catagorymodel;
+    private $sessiondata;
+    private $session_userid;
 
     function __construct()
     {
         $this->session = \Config\Services::session();
         $this->session->start();
         $this->adminmodel = new AdminModel();
-        $this->productmodel = new productModel();
+        $this->catagorymodel = new CatagoryModel();
+        $this->sessiondata = $this->session->get('userdata');
+        $this->session_userid = $this->sessiondata[0]->id;
     }
 
+    // ======= Add Catagory ===== 
     public function addcatagory()
     {
-        return view('product/addcatagory');
+        return view('catagory/addcatagory');
     }
+
+    // ======= Catagory Listing  ===== 
 
     public function catagory()
     {
-        return view('product/catagoryListing');
+        $allcatagory = $this->catagorymodel->getallcatagory();
+        $data = ['allcatagory'=>$allcatagory];
+        return view('catagory/catagoryListing',$data);
     }
 
-    public function addsubcatagory()
+    // ======= Add Sub Catagory ===== 
+     public function addsubcatagory()
     {
-        $allcatagory = $this->adminmodel->getallcatagory();
+          
+        $allcatagory = $this->catagorymodel->getallcatagory();
         $data = ['allcatagory'=>$allcatagory];
-        return view('product/addsubcatagory',$data);
+        return view('catagory/addsubcatagory',$data);
     } 
+
+    // ======= Sub Catagory Listing ===== 
+    public function subcatagory()
+    {
+        $getallsubcatagory = $this->catagorymodel->getallsubcatagory();
+        $data = ['getallsubcatagory'=>$getallsubcatagory];
+        return view('catagory/subcatagory',$data);
+    }
 
     public function addcatagory_form()
     {
@@ -44,6 +63,7 @@ class ProductController extends BaseController
                 $session_data = $this->session->get('userdata');
                 $catgoryID = rand(10,100).'CATPRE';
                 $imagetype = $_FILES['catagoryaimage'];
+                $image_prefix = CAT_PREFIX;
              
                 $catagoryname       =   $this->request->getPost('catagoryname'); 
                 $catagoryalias      =   $this->request->getPost('catagoryalias'); 
@@ -52,7 +72,7 @@ class ProductController extends BaseController
                 $catstatus          =   $this->request->getPost('catstatus');
 
 
-                $imageupload = $this->adminmodel->uploadCatgeory_image($imagetype);
+                $imageupload = $this->adminmodel->uploadCatgeory_image($imagetype,$image_prefix);
                 if ($imageupload['success'] == TRUE){
                     $filename = $imageupload['file_name'];
                     $filepath = $imageupload['uploded_path'];
@@ -69,7 +89,7 @@ class ProductController extends BaseController
                                             'session_userid'    =>  $session_data[0]->id
                                         );
 
-                    $insertdata = $this->productmodel->insertCategory($insertarray);
+                    $insertdata = $this->catagorymodel->insertCategory($insertarray);
                        if($insertdata == TRUE)
                        {
                             return redirect()->to('catagory');
@@ -86,58 +106,48 @@ class ProductController extends BaseController
        
         if (strtolower($this->request->getMethod()) == 'post')
             {
-                echo '<pre>'; print_r($_POST); die;
-                $session_data = $this->session->get('userdata');
-                $catgoryID = rand(10,100).'CATPRE';
-                $imagetype = $_FILES['catagoryaimage'];
+              
+                $subcatgoryID = rand(10,100).'SUB_CATPRE';
+                $imagetype = $_FILES['sub_category_image'];
+                $image_prefix = SUB_CAT_PREFIX;
              
-                $catagoryname       =   $this->request->getPost('catagoryname'); 
-                $catagoryalias      =   $this->request->getPost('catagoryalias'); 
-                $catagoryatext      =   $this->request->getPost('catagoryatext');
-                $catagorymessage    =   $this->request->getPost('catagorymessage');
-                $catstatus          =   $this->request->getPost('catstatus');
+                $sub_category_name          =   $this->request->getPost('sub_category_name'); 
+                $parent_category_id         =   $this->request->getPost('parent_category_id'); 
+                $sub_category_text          =   $this->request->getPost('sub_category_text');
+                $sub_category_description   =   $this->request->getPost('sub_category_description');
+                $is_active                  =   $this->request->getPost('is_active');
 
 
-                $imageupload = $this->adminmodel->uploadCatgeory_image($imagetype);
+                $imageupload = $this->adminmodel->uploadCatgeory_image($imagetype,$image_prefix);
                 if ($imageupload['success'] == TRUE){
                     $filename = $imageupload['file_name'];
                     $filepath = $imageupload['uploded_path'];
 
                     $insertarray  = array(
-                                            'category_uid'  =>  $catgoryID,
-                                            'catagoryname'  =>  $catagoryname,
-                                            'catagoryalias' =>  $catagoryalias,
-                                            'catagoryatext' =>  $catagoryatext,
-                                            'category_description'  =>  $catagorymessage,
-                                            'catstatus'     =>  $catstatus,
-                                            'filename'      =>  $filename,
-                                            'filepath'      =>  $filepath,
-                                            'session_userid'    =>  $session_data[0]->id
+                                            'subcategory_uid'       =>  $subcatgoryID,
+                                            'sub_category_name'     =>  $sub_category_name,
+                                            'parent_category_id'    =>  $parent_category_id,
+                                            'sub_category_text'     =>  $sub_category_text,
+                                            'sub_category_description'  =>  $sub_category_description,
+                                            'is_active'             =>  $is_active,
+                                            'sub_category_image'    =>  $filename,
+                                            'sub_category_image_url'=>  $filepath,
+                                            'parent_category_id'    =>  $this->session_userid
                                         );
 
-                    $insertdata = $this->productmodel->insertCategory($insertarray);
+                    $insertdata = $this->catagorymodel->insertsubCategory($insertarray);
                        if($insertdata == TRUE)
                        {
-                            return redirect()->to('catagory');
+                            return redirect()->to('subcatagory');
                        }
                        else {
-                            return redirect()->to('addcatagory');
+                            return redirect()->to('addsubcatagory');
                         }
                 }
         }
     }
    
-
-    public function productlisting()
-    {
-        return view('');
-    }
-
-    public function addproduct()
-    {
-        
-        return view('product/addproduct');
-    }
+  
 }
 
 //productlisting

@@ -22,19 +22,25 @@ $routes->get('/logout', 'AdminController::logout');
 
 // ============== PRODCUT CONTROLLER ROUTE START ===============
 
-$routes->get('/addcatagory', 'ProductController::addcatagory');
-$routes->post('/addcatagory_form', 'ProductController::addcatagory_form');
-$routes->get('/catagory', 'ProductController::catagory');
+$routes->get('/addcatagory', 'CatagoryController::addcatagory');
+$routes->post('/addcatagory_form', 'CatagoryController::addcatagory_form');
+$routes->get('/catagory', 'CatagoryController::catagory');
 
 
-$routes->get('/addsubcatagory', 'ProductController::addsubcatagory');
-$routes->post('/addsubcatagory_form', 'ProductController::addsubcatagory_form');
+$routes->get('/addsubcatagory', 'CatagoryController::addsubcatagory');
+$routes->post('/addsubcatagory_form', 'CatagoryController::addsubcatagory_form');
+$routes->get('/subcatagory', 'CatagoryController::subcatagory');
 
 
 
 
-$routes->get('/productlisting', 'ProductController::productlisting');
-$routes->get('/addproduct', 'ProductController::addproduct');
+$routes->get('/productlisting', 'CatagoryController::productlisting');
+$routes->get('/addproduct', 'CatagoryController::addproduct');
 
 
 // =============== END HERE ============
+
+// =============== AJAX CONTROLLER RTOUTE START FROM HERE =============
+$routes->get('/changestatus','AjaxController::changestatus');
+$routes->post('/ajaxcallchangestatus','AjaxController::changestatus');
+// =============== END HERE ===================

@@ -16,6 +16,8 @@
 	<link href="<?php echo base_url(); ?>assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+	<link href="<?php echo base_url(); ?>assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link href="<?php echo base_url(); ?>assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>
 <body>
@@ -174,6 +176,7 @@
 							<li><a href="<?= base_url();?>catagory" >Catagory Liting</a></li>
 							<li><a href="<?= base_url();?>addcatagory" >Add Catagory</a></li>
 							<li><a href="<?= base_url();?>addsubcatagory" >Sub Catagory</a></li>
+							<li><a href="<?= base_url();?>subcatagory" >Sub Catagory Listing</a></li>
 						</ul>
 					</li> 
 					<li class="has-sub">
@@ -232,8 +235,10 @@
 		<!-- end #sidebar -->
     <?= $this->renderSection('content') ?>
     <!-- ================== BEGIN BASE JS ================== -->
-<script src="<?php echo base_url(); ?>assets/js/app.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/app.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/theme/default.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -250,6 +255,11 @@
     <script src="<?php echo base_url(); ?>assets/plugins/parsleyjs/dist/parsley.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/highlight.js/highlight.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/demo/render.highlight.js"></script>
+	<script src="<?php echo base_url(); ?>assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/demo/table-manage-default.demo.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 </body>
 </html>

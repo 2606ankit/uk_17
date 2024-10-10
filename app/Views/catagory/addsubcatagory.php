@@ -22,30 +22,28 @@
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 					</div>
 				</div>
-				<?php 
-					print_r($data);
-				?>
+			 
 			    <div class="panel-body">
-							<form class="form-horizontal" method="post" data-parsley-validate="true" enctype="multipart/form-data" name="addcatagory_form" novalidate="" action="<?= base_url(); ?>addcatagory_form">
+							<form class="form-horizontal" method="post" data-parsley-validate="true" enctype="multipart/form-data" name="addcatagory_form" novalidate="" action="<?= base_url(); ?>addsubcatagory_form">
 								<div class="form-group row m-b-15">
 									<label class="col-md-4 col-sm-4 col-form-label" for="fullname">Sub Catagory Name * :</label>
 									<div class="col-md-8 col-sm-8">
 										<input class="form-control" type="text" id="sub_category_name" name="sub_category_name" placeholder="Sub Catagory Name" data-parsley-required="true">
 									</div>
 								</div>
-                                <div class="form-group row m-b-15">
-									<label class="col-md-4 col-sm-4 col-form-label" for="fullname">Sub Catagory Alias * :</label>
-									<div class="col-md-8 col-sm-8">
-										<input class="form-control" type="text" id="catagoryalias" name="catagoryalias" placeholder="Sub Catagory Alias" data-parsley-required="true">
-									</div>
-								</div>
+                                 
 								<div class="form-group row m-b-15">
 									<label class="col-md-4 col-sm-4 col-form-label" for="email">Parent Catagory * :</label>
 									<div class="col-md-8 col-sm-8">
-                                    <select class="form-control" id="catstatus" name="catstatus" data-parsley-required="true">
+                                    <select class="form-control" id="parent_category_id" name="parent_category_id" data-parsley-required="true">
 											<option value="">- - Select Status - -</option>
-											<option value="1">Active</option>
-											<option value="2">Inactive</option>
+											<?php 
+												foreach($allcatagory as $key=>$val){
+											?>
+												<option value="<?php echo $val->id; ?>"><?php echo $val->category_name; ?></option>
+											<?php 
+												}
+											?>
 										</select>
 									</div>
 								</div>
@@ -70,7 +68,7 @@
 								<div class="form-group row m-b-15">
 									<label class="col-md-4 col-sm-4 col-form-label" for="email">Sub Status * :</label>
 									<div class="col-md-8 col-sm-8">
-                                    <select class="form-control" id="catstatus" name="catstatus" data-parsley-required="true">
+                                    <select class="form-control" id="is_active" name="is_active" data-parsley-required="true">
 											<option value="">- - Select Status - -</option>
 											<option value="1">Active</option>
 											<option value="2">Inactive</option>

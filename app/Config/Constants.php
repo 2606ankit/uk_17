@@ -99,5 +99,7 @@ define('SITE_TITLE','UK17');
 define('CATGORY_PREFIX','CATPRE');
 define('CATEGORY_IMAGE_UPLOAD_PATH','/uk-17/catagory_image/');
 define('CAT_TYPE','1');
+define('CAT_PREFIX','CAT_');
+define('SUB_CAT_PREFIX','SUB_CAT_');
 // =============== USER ROLES ===============
 define('ADMIN','1');
