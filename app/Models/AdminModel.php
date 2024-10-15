@@ -40,6 +40,24 @@
             
         }
 
+        // change cat and subcat status 
+        public function changestatus($data)
+        {
+             $this->db = db_connect();
+            $querybuld = $this->db->table('uk_'.$data['tablename']);
+            if ($data['catstatus'] == '1'){$status = '0';}else {$status = '1'; }
+            $date = date('Y-m-d H:i:s');
+
+            $update = $querybuld->set("is_active",$status);
+                        $querybuld->set("updated_at",$date);
+                        $querybuld->set("updated_by",$data['ses_user_id']);
+                        $querybuld->where('id', $data['catid']);
+                        $querybuld->update();
+            return true;
+        }
+        // end here
+
+
         public function uploadCatgeory_image($imagetype,$image_prefix)
         {
            chmod($_SERVER['DOCUMENT_ROOT'].CATEGORY_IMAGE_UPLOAD_PATH, 0777);

@@ -9,15 +9,51 @@
 				<li class="breadcrumb-item"><a href="<?php echo base_url().'addsubcatagory'?>">Add Sub Catagory</a></li>
 				<li class="breadcrumb-item active">Catagory Listing</li>
 			</ol>
+			<?php 
+					if (!empty($succes_message)){
+						echo '<div id="gritter-notice-wrapper">
+							<div id="gritter-item-1" class="gritter-item-wrapper my-sticky-class" style="" role="alert">
+								<div class="gritter-top"></div>
+								<div class="gritter-item">
+									<a class="gritter-close" href="#" tabindex="1" style="display: none;">Close Notification</a>
+									 
+								<div class="gritter-with-image">
+									<span class="gritter-title">Success</span>
+									<p>'.$succes_message.'</p>
+								</div>
+								<div style="clear:both"></div>
+							</div>
+							<div class="gritter-bottom"></div>
+						</div>
+					</div>';
+					}
+					if (!empty($error_message)){
+						echo '<div id="gritter-notice-wrapper">
+							<div id="gritter-item-1" class="gritter-item-wrapper my-sticky-class" style="" role="alert">
+								<div class="gritter-top"></div>
+								<div class="gritter-item">
+									<a class="gritter-close" href="#" tabindex="1" style="display: none;">Close Notification</a>
+									 
+								<div class="gritter-with-image">
+									<span class="gritter-title">Error</span>
+									<p>'.$error_message.'</p>
+								</div>
+								<div style="clear:both"></div>
+							</div>
+							<div class="gritter-bottom"></div>
+						</div>
+					</div>';
+					}
+				?>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Catagory Listing</small></h1>
+			<h1 class="page-header">Sub-Catagory Listing</small></h1>
 			<!-- end page-header -->
 			<!-- begin panel -->
 			<div class="panel panel-inverse">
 				<!-- begin panel-heading -->
 				<div class="panel-heading">
-					<h4 class="panel-title">Catagory Listing</h4>					 
+					<h4 class="panel-title">Sub-Catagory Listing</h4>					 
 				</div>
 				<!-- end panel-heading -->
 				<!-- begin panel-body -->
@@ -41,10 +77,11 @@
 						 
                                 foreach($getallsubcatagory as $key=>$val)
                                 {
-                                    if($val->is_active == 1){ $status='<a href="'.base_url().'changestatus" data-uid="'.$val->id.'" data-status="'.$val->is_active.'" data-tablename="category" data-pagetype="cat" class="btn btn-success changestatus">Active</a>';} 
-                                    else { $status = '<a href="'.base_url().'changestatus" data-uid="'.$val->id.'" data-status="'.$val->is_active.'" data-pagetype="cat" data-tablename="category" class="btn btn-danger changestatus" >Inactive</a>';}
+                                	if($val->is_active == 1){ $status='<a href="javascript:;" data-uid="'.$val->id.'" data-status="'.$val->is_active.'" data-tablename="sub_category " data-pagetype="subcat" class="btn btn-success changestatus" data-csrftoken="'.csrf_hash().'" data-csrfname="'.csrf_token().'" data-sesid="'.$sesid.'">Active</a>';} 
+                                    else { $status = '<a href="javascript:;" data-uid="'.$val->id.'" data-status="'.$val->is_active.'" data-pagetype="subcat" data-tablename="sub_category " data-csrftoken="'.csrf_hash().'" data-csrfname="'.csrf_token().'" data-sesid="'.$sesid.'" class="btn btn-danger changestatus" >Inactive</a>';}
                                     $imageurl = base_url().'catagory_image/'.$val->sub_category_image;
-									  
+									//$editid = $val->id;
+									$editid = urlencode(base64_encode($val->id));
                             ?>
 							<tr class="odd gradeX"> 
 								<td width="1%" class="f-s-600 text-inverse"><?php echo $key+1;?></td>
@@ -56,7 +93,7 @@
 								<td><?php echo $val->sub_category_description;?></td> 
 								
 								<td><?php echo $status; ?></td>
-								<td><a href="#" class="btn btn-primary">Edit</a>&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-warning">Delete</a></td>
+								<td><a href="<?= base_url();?>edit_subcatagory/<?php echo $editid; ?>" class="btn btn-primary">Edit</a>&nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-warning">Delete</a></td>
 							</tr>
                             <?php 
                                 }

@@ -7,12 +7,38 @@ use CodeIgniter\Files\File;
 
 class AjaxController extends BaseController
 {
+    protected $session;
+    private $adminmodel;
+
+	function __construct()
+    {
+        $this->session = \Config\Services::session();
+        $this->session->start();
+        $this->adminmodel = new AdminModel();
+    }
+
     public function changestatus()
     {
-        if ($this->request->isAJAX()) {
-            $query = $this->request->getPost('hreftype');
-            echo $query;
-        }
+        $hreftype	=	$_POST['hreftype'];
+        $catstatus	=	$_POST['catstatus'];
+        $catid		=	$_POST['catid'];
+        $tablename	=	$_POST['tablename'];
+        $ses_user_id=	$_POST['ses_user_id'];
+
+        $data = [
+        			'hreftype'	=>	$hreftype,
+        			'catstatus'	=>	$catstatus,
+        			'catid'		=>	$catid,
+        			'tablename'	=>	$tablename,
+        			'ses_user_id'	=>	$ses_user_id,
+        		];
+
+        	$result = $this->adminmodel->changestatus($data);
+    }
+
+    public function delete_catagory()
+    {
+    	
     }
 }
 
