@@ -42,11 +42,14 @@ $routes->post('/edit_subcatagoryform/', 'CatagoryController::edit_subcatagoryfor
 
 
 
+// Product function controller start here
 
+$routes->get('/product_listing', 'ProductController::product_listing');
 
-$routes->get('/productlisting', 'CatagoryController::productlisting');
-$routes->get('/addproduct', 'CatagoryController::addproduct');
+$routes->get('/addproduct', 'ProductController::addproduct');
+$routes->post('/addproduct_form', 'ProductController::addproduct_form');
 
+// end here
 
 // =============== END HERE ============
 
@@ -55,8 +58,8 @@ $routes->get('/changestatus','AjaxController::changestatus');
 $routes->post('/changestatus','AjaxController::changestatus');
 
 // delete catagory
-$routes->get('/delete_catagory','AjaxController::delete_catagory');
-$routes->post('/delete_catagory','AjaxController::delete_catagory');
+$routes->get('/globaldelete','AjaxController::globaldelete');
+$routes->post('/globaldelete','AjaxController::globaldelete');
 
 
 // =============== END HERE ===================

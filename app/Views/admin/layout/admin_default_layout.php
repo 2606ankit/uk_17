@@ -237,7 +237,7 @@
     <!-- ================== BEGIN BASE JS ================== -->
 	<script src="<?php echo base_url(); ?>assets/js/app.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/theme/default.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+	
 
 	<!-- ================== END BASE JS ================== -->
 	
@@ -260,6 +260,9 @@
 	<script src="<?php echo base_url(); ?>assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/demo/table-manage-default.demo.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
+
+ 
 </body>
 </html>

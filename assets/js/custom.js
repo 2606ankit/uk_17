@@ -23,18 +23,35 @@ $(document).ready(function(){
                 location.reload(); 
             }
           }); 
-    })
+    });
     // End here
 
     // delete global function
+    $("#globaldelete").click(function(){
+        alert('res');
+        var globaldelete = $(this);
 
+        var uid         = globaldelete.attr('data-uid');
+        var pagetype    = globaldelete.attr('data-pagetype');
+        var tablename   = globaldelete.attr('data-tablename');
+        var csrftoken   = globaldelete.attr('data-csrftoken'); 
+        var csrfname    = globaldelete.attr('data-csrfname'); 
+
+         $.ajax({
+            type: "POST",
+            url: base_url+"globaldelete",
+            data: {'pagetype':pagetype,'uid':uid,'tablename':tablename,[csrfname]: csrftoken},
+            cache: false, 
+            success: function(res){
+                alert('asdfas');
+                //location.reload(); 
+            }
+          }); 
+    });
 
     // end here
 
    
 });
 
-function deleteglobal()
-{
-    
-}
+ 

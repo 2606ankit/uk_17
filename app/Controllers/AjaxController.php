@@ -36,9 +36,19 @@ class AjaxController extends BaseController
         	$result = $this->adminmodel->changestatus($data);
     }
 
-    public function delete_catagory()
+    public function globaldelete()
     {
-    	
+    	$pagetype  	=	$_POST['pagetype'];
+    	$tablename  =	$_POST['tablename'];
+    	$uid  		=	$_POST['uid'];
+	
+		$data =	[
+					'pagetype' => $pagetype,
+					'tablename'	=>	$tablename,
+					'uid'	=>	$uid
+				];
+
+		$result = $this->adminmodel->globaldelete($data);		     
     }
 }
 

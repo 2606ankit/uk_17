@@ -1,6 +1,6 @@
 <?= $this->extend('admin/layout/admin_default_layout');  ?>
 
-<?= $this->section('content') ?>
+<?= $this->section('content'); ?>
  <!-- begin #content -->
  <div id="content" class="content">
 			<!-- begin breadcrumb -->
@@ -77,8 +77,6 @@
                             <?php 
                                 foreach($allcatagory as $key=>$val)
                                 {
-                                  
-
                                     if($val->is_active == 1){ $status='<a href="javascript:;" data-uid="'.$val->id.'" data-status="'.$val->is_active.'" data-tablename="category " data-pagetype="subcat" class="btn btn-success changestatus" data-csrftoken="'.csrf_hash().'" data-csrfname="'.csrf_token().'" data-sesid="'.$sesid.'">Active</a>';} 
                                     else { $status = '<a href="javascript:;" data-uid="'.$val->id.'" data-status="'.$val->is_active.'" data-pagetype="subcat" data-tablename="category " data-csrftoken="'.csrf_hash().'" data-csrfname="'.csrf_token().'" data-sesid="'.$sesid.'" class="btn btn-danger changestatus" >Inactive</a>';}
 
@@ -98,7 +96,7 @@
 								
 								<td><?php echo $status; ?></td>
 								<td><a href="<?= base_url();?>edit_catagory/<?php echo $editid; ?>" class="btn btn-primary">Edit</a>&nbsp;&nbsp;&nbsp;
-								<a href="<?= base_url();?>delete_catagory/<?php echo $editid; ?>" data-uid="<?= $val->id;?>" data-pagetype="cat" data-tablename="category " data-csrftoken="<?= csrf_hash();?>" data-csrfname="<?= csrf_token(); ?>" class="btn btn-warning delete">Delete</a></td>
+								<a href="javascript:;" id="globaldelete" data-uid="<?= $val->id;?>" data-pagetype="cat" data-tablename="category " data-csrftoken="<?= csrf_hash();?>" data-csrfname="<?= csrf_token(); ?>" class="btn btn-warning">Delete</a></td>
 							</tr>
                             <?php 
                                 }
